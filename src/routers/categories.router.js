@@ -4,31 +4,31 @@ const {
   create,
   update,
   remove,
-} = require('../services/users.service.js');
+} = require('../services/categories.service.js');
 
-const getAllUsers = async (req, res) => {
-  const users = await getAll();
+const getAllCategories = async (req, res) => {
+  const categories = await getAll();
 
-  res.send(users);
+  res.send(categories);
 };
 
-const getUsersById = async (req, res) => {
+const getCategoryById = async (req, res) => {
   const { id } = req.params;
 
   const idNum = Number(id);
 
-  const user = await getById(idNum);
+  const category = await getById(idNum);
 
-  if (!user) {
+  if (!category) {
     res.status(404).send({ message: 'Not found' });
 
     return;
   }
 
-  res.send(user);
+  res.send(category);
 };
 
-const createUser = async (req, res) => {
+const createCategory = async (req, res) => {
   const { name } = req.body;
 
   if (typeof name !== 'string') {
@@ -43,19 +43,19 @@ const createUser = async (req, res) => {
     return;
   }
 
-  const user = await create({ name });
+  const category = await create({ name });
 
-  res.status(201).send(user);
+  res.status(201).send(category);
 };
 
-const deleteUser = async (req, res) => {
+const deleteCategory = async (req, res) => {
   const { id } = req.params;
 
   const idNum = Number(id);
 
-  const user = await remove(idNum);
+  const category = await remove(idNum);
 
-  if (!user) {
+  if (!category) {
     res.status(404).send({ message: 'Not found' });
 
     return;
@@ -64,7 +64,7 @@ const deleteUser = async (req, res) => {
   res.status(204).send();
 };
 
-const updateUser = async (req, res) => {
+const updateCategory = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -82,21 +82,21 @@ const updateUser = async (req, res) => {
     return;
   }
 
-  const user = await update({ id: idNum, name });
+  const category = await update({ id: idNum, name });
 
-  if (!user) {
+  if (!category) {
     res.status(404).send({ message: 'Not found' });
 
     return;
   }
 
-  res.send(user);
+  res.send(category);
 };
 
 module.exports = {
-  getAllUsers,
-  getUsersById,
-  createUser,
-  deleteUser,
-  updateUser,
+  getAllCategories,
+  getCategoryById,
+  createCategory,
+  deleteCategory,
+  updateCategory,
 };
